@@ -2800,7 +2800,8 @@ fork_privchld(int fd, int fd2)
 	setsid();
 	dup2(nullfd, STDIN_FILENO);
 	dup2(nullfd, STDOUT_FILENO);
-	dup2(nullfd, STDERR_FILENO);
+	if (!no_daemon)
+		dup2(nullfd, STDERR_FILENO);
 	close(nullfd);
 	close(fd2);
 	close(ifi->rfdesc);
